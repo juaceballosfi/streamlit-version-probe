@@ -1,6 +1,6 @@
 # Prueba de compatibilidad de Streamlit en Fi Apps
 
-Aplicación mínima con Streamlit **1.67.0** y datos sintéticos. Comprueba el menú superior nativo, una página de detalle oculta del menú y la conexión del navegador tras el inicio de sesión OIDC. La pantalla muestra la versión efectiva de Streamlit y Python y si existe la cabecera `X-User-Id`. Solo indica su presencia.
+Aplicación mínima con Streamlit **1.55.0** y datos sintéticos. Comprueba el menú superior nativo, una página de detalle oculta del menú y la conexión del navegador tras el inicio de sesión OIDC. La pantalla muestra la versión efectiva de Streamlit y Python y si existe la cabecera `X-User-Id`. Solo indica su presencia.
 
 ## Ejecutar en local
 
@@ -18,7 +18,7 @@ Abre [la prueba local](http://127.0.0.1:8521). Fuera del gateway de Fi Apps, `X-
 
 1. Publica esta carpeta en un repositorio Git de prueba accesible para Fi Apps. Configura **una aplicación nueva** con la plantilla **Streamlit app**, el repositorio de prueba y `app.py` como entrada. La plantilla instala `requirements.txt` desde la raíz. Deja **Environment** vacío, como indica [`.env.example`](.env.example).
 2. Configura el puerto compartido como **Collaborators only + OIDC**. Ejecuta **Deploy** y abre la URL compartida desde una ventana privada autenticándote con una cuenta colaboradora.
-3. Comprueba que el login vuelve a la URL compartida y que la app muestra `Streamlit 1.67.0` y `X-User-Id: present`. Si hay un fallo, registra la etapa, el estado HTTP y si el destino era el host público o el interno. Evita copiar la URL completa de la autenticación, cabeceras o cookies.
+3. Comprueba que el login vuelve a la URL compartida y que la app muestra `Streamlit 1.55.0` y `X-User-Id: present`. Si hay un fallo, registra la etapa, el estado HTTP y si el destino era el host público o el interno. Evita copiar la URL completa de la autenticación, cabeceras o cookies.
 4. En el menú deben aparecer **Documents** y **Export**. Abre **Warnings (1)** en Documents. Pulsa **Sample contract**, marca **Reviewed** y vuelve con **Back to Documents**. En una sesión nueva, añadir `/review` a la URL base de la app debe hacer que muestre Documents al faltar una selección.
 
-El antecedente U-11 de ContractFlow registró que esta misma versión redirigía al host interno después de OIDC. Esta prueba permite ver si el fallo se reproduce con una instalación mínima. Si pasa, el siguiente ensayo se hace con la aplicación completa en un entorno de prueba.
+El fallo de OIDC volvió a observarse en Fi Apps con Streamlit 1.67.0. Esta prueba usa 1.55.0, la primera versión con `st.Page(visibility="hidden")`, para verificar si el login funciona manteniendo el menú nativo. Si pasa, el siguiente ensayo se hace con la aplicación completa en un entorno de prueba.
